@@ -1,0 +1,20 @@
+name: 'Nordian format check action'
+description: 'Verifies that the code is formatted according to the Nordian style guide'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install clang-format
+      shell: bash
+      run: |
+        pip3 install clang-format==18.1.6
+
+    - name: Check formatting
+      shell: bash
+      run: |
+        python3 ${{ github.action_path }}/check_format.py
